@@ -6,10 +6,21 @@ public class PlayerShoot : MonoBehaviour {
 	private Animator _animator;
 	public ParticleSystem SmokeSystem;
 	public AudioSource AttackSound;
+	public GameObject Bullet;
+	public GameObject BulletStartPoint;
+	public float FirePower = 2.0f;
 
 	public void Awake() 
 	{
 		_animator = GetComponent<Animator> ();
+
+		if (Bullet == null) {
+			throw new MissingComponentException("Bullet is missing");
+		}
+
+		if (BulletStartPoint == null) {
+			throw new MissingComponentException("BulletStartPoint is missing");
+		}
 	}
 
 	void Update () {
@@ -21,6 +32,10 @@ public class PlayerShoot : MonoBehaviour {
 		if (Input.GetMouseButtonDown(0)) 
 		{
 			_animator.SetTrigger("FireTrigger");
+
+			var bullet = (GameObject) Instantiate(Bullet, BulletStartPoint.transform.position, BulletStartPoint.transform.rotation);
+			var bulletBody = (Rigidbody2D) bullet.GetComponentInChildren(typeof(Rigidbody2D));
+			bulletBody.AddForce(bullet.transform.up * FirePower, ForceMode2D.Impulse);
 
 			if (SmokeSystem != null) 
 			{
