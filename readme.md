@@ -8,19 +8,19 @@ TankZ will be a little 2D game with human controlled tanks. Goal is - of course 
 
 Even if I don't have a plan what exactly TankZ will be, here is a little list of things, which are needed or sound like a nice idea:
 
-# Main menu
-# Options
-	# Rebind Key Mappings
-# Human vs CPU
-# Human vs Human
-# Maps
-# Obstacles
-# Night/Day-Maps or cycles?
-# Light
-	# Blocked by obstacles?
-# Nice little effects (smoke, explosions and all the fancy stuff)
-# Network-Multiplayer
-# Cross plattform
-	# Desktop
-	# Web (Unity WebGL)
-	# Mobile? 
+* Main menu
+* Options
+	* Rebind Key Mappings
+* Human vs CPU
+* Human vs Human
+* Maps
+* Obstacles
+* Night/Day-Maps or cycles?
+* Light
+	* Blocked by obstacles?
+* Nice little effects (smoke, explosions and all the fancy stuff)
+* Network-Multiplayer
+* Cross plattform
+	* Desktop
+	* Web (Unity WebGL)
+	* Mobile? 
