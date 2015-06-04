@@ -24,6 +24,7 @@ public class PlayerShoot : MonoBehaviour {
 
 			if (SmokeSystem != null) 
 			{
+				SmokeSystem.Clear();
 				SmokeSystem.Play();
 			}
 
