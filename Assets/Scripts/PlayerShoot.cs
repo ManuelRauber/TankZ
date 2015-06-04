@@ -5,6 +5,7 @@ public class PlayerShoot : MonoBehaviour {
 
 	private Animator _animator;
 	public ParticleSystem SmokeSystem;
+	public AudioSource AttackSound;
 
 	public void Awake() 
 	{
@@ -24,6 +25,11 @@ public class PlayerShoot : MonoBehaviour {
 			if (SmokeSystem != null) 
 			{
 				SmokeSystem.Play();
+			}
+
+			if (AttackSound != null) 
+			{
+				AttackSound.Play();
 			}
 		}
 	}
