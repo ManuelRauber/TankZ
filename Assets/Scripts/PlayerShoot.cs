@@ -24,8 +24,9 @@ public class PlayerShoot : MonoBehaviour {
 
 			if (SmokeSystem != null) 
 			{
-				SmokeSystem.Clear();
-				SmokeSystem.Play();
+				var smoke = (ParticleSystem) Instantiate(SmokeSystem, SmokeSystem.transform.position, SmokeSystem.transform.rotation);
+				smoke.Play();
+				Destroy(smoke.gameObject, smoke.startLifetime * 1.1f);
 			}
 
 			if (AttackSound != null) 
