@@ -10,11 +10,11 @@ public class PlayerTank : MonoBehaviour {
 	private float _turnInput;
 	private Vector3 _mousePosition;
 
-	private Rigidbody2D tankBody;
+	private Rigidbody2D _tankBody;
 
 	public void Awake() 
 	{
-		tankBody = GetComponent<Rigidbody2D> ();
+		_tankBody = GetComponent<Rigidbody2D> ();
 
 		if (Cannon == null) {
 			throw new MissingReferenceException("No cannon attached!");
@@ -36,8 +36,8 @@ public class PlayerTank : MonoBehaviour {
 
 	private void MoveTank() 
 	{
-		tankBody.AddRelativeForce (new Vector2 (0f, _powerInput * Speed));
-		tankBody.MoveRotation (tankBody.rotation - _turnInput * TurnSpeed);
+		_tankBody.AddRelativeForce (new Vector2 (0f, _powerInput * Speed));
+		_tankBody.MoveRotation (_tankBody.rotation - _turnInput * TurnSpeed);
 	}
 
 	private void CannonMouseFollow() 
@@ -47,4 +47,6 @@ public class PlayerTank : MonoBehaviour {
 		var targetRotation = Quaternion.RotateTowards (Cannon.transform.rotation, rotation, CannonTurnRate);
 		Cannon.transform.rotation = new Quaternion (0, 0, targetRotation.z, targetRotation.w);
 	}
+
+
 }
