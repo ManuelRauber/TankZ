@@ -5,7 +5,7 @@ public class PlayerTank : MonoBehaviour {
 	public float Speed = 80f;
 	public float TurnSpeed = 1.3f;
 	public GameObject Cannon;
-	public float CannonTurnRate = 0.1f;
+	public float CannonTurnRate = 30f;
 	private float _powerInput;
 	private float _turnInput;
 	private Vector3 _mousePosition;
