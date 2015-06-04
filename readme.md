@@ -21,5 +21,6 @@ Even if I don't have a plan what exactly TankZ will be, here is a little list of
 # Nice little effects (smoke, explosions and all the fancy stuff)
 # Network-Multiplayer
 # Cross plattform
-	# Desktop 
+	# Desktop
+	# Web (Unity WebGL)
 	# Mobile? 
