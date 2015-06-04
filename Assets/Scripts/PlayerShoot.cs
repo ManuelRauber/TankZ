@@ -46,7 +46,9 @@ public class PlayerShoot : MonoBehaviour {
 
 			if (AttackSound != null) 
 			{
-				AttackSound.Play();
+				var sound = (AudioSource) Instantiate(AttackSound, BulletStartPoint.transform.position, BulletStartPoint.transform.rotation);
+				sound.Play();
+				Destroy (sound.gameObject, sound.clip.length);
 			}
 		}
 	}
