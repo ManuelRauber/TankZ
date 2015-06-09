@@ -4,11 +4,14 @@ using System.Collections;
 public class PlayerShoot : MonoBehaviour {
 
 	private Animator _animator;
+	private float _nextFireTime;
+
 	public ParticleSystem SmokeSystem;
 	public AudioSource AttackSound;
 	public GameObject Bullet;
 	public GameObject BulletStartPoint;
 	public float FirePower = 2.0f;
+	public float ReloadTime = 0.4f;
 
 	public void Awake() 
 	{
@@ -21,6 +24,8 @@ public class PlayerShoot : MonoBehaviour {
 		if (BulletStartPoint == null) {
 			throw new MissingComponentException("BulletStartPoint is missing");
 		}
+
+		_nextFireTime = Time.time;
 	}
 
 	void Update () {
@@ -31,6 +36,12 @@ public class PlayerShoot : MonoBehaviour {
 	{
 		if (Input.GetMouseButtonDown(0)) 
 		{
+			if (Time.time <= _nextFireTime) {
+				return;
+			}
+
+			_nextFireTime = Time.time + ReloadTime;
+
 			_animator.SetTrigger("FireTrigger");
 
 			var bullet = (GameObject) Instantiate(Bullet, BulletStartPoint.transform.position, BulletStartPoint.transform.rotation);
