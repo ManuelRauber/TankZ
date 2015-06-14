@@ -11,6 +11,10 @@ public class WorldGenerator : MonoBehaviour
 	public int SizeX = 20;
 	public int SizeY = 20;
 	public int MaxObstacles = 40;
+
+	public GameObject Player;
+	public Vector3 PlayerStartPosition;
+
 	private GameObject _sandGround;
 	private GameObject _dirtGround;
 	private GameObject _grassGround;
@@ -38,6 +42,7 @@ public class WorldGenerator : MonoBehaviour
 		GenerateCells ();
 		GenerateBorder ();
 		GenerateObstacles ();
+		GeneratePlayer ();
 	}
 
 	/// <summary>
@@ -115,5 +120,33 @@ public class WorldGenerator : MonoBehaviour
 		var position = new Vector3 (Random.Range (2 * _gridSize, _gridSize * (SizeX - 2)), Random.Range (2 * _gridSize, _gridSize * (SizeY - 2)), 0);
 
 		return position;
+	}
+
+	private void GeneratePlayer () {
+		if (Player == null) {
+			return;
+		}
+
+		var player = Instantiate (Player, PlayerStartPosition, Quaternion.identity) as GameObject;
+
+		TrySetCameraToPlayer (player);
+	}
+
+	// Maybe should be in another script?
+	private void TrySetCameraToPlayer(GameObject player) {
+		var mainCamera = GameObject.FindGameObjectWithTag (CustomTags.MainCamera);
+
+		if (mainCamera == null) {
+			return;
+		}
+
+		var followScript = mainCamera.GetComponent<CameraFollow> ();
+
+		if (followScript == null) {
+			return;
+		}
+
+		Debug.Log ("Setting main camera to follow player");
+		followScript.FollowWhat = player;
 	}
 }
