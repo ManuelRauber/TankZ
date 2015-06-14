@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class SimpleBullet : MonoBehaviour {
@@ -18,7 +18,7 @@ public class SimpleBullet : MonoBehaviour {
 	}
 
 	public void OnTriggerEnter2D(Collider2D other) {
-		if (other.tag == Tags.Wood) {
+		if (other.tag == CustomTags.Wood) {
 			Explode();
 			Destroy (gameObject);
 		}

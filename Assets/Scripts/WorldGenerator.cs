@@ -1,44 +1,52 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class WorldGenerator : MonoBehaviour {
+public class WorldGenerator : MonoBehaviour
+{
 	/// <summary>
 	/// Game object where all generated world elements will be placed on
 	/// </summary>
 	public GameObject ParentGameObject;
-
 	public int SizeX = 20;
 	public int SizeY = 20;
-
+	public int MaxObstacles = 40;
 	private GameObject _sandGround;
 	private GameObject _dirtGround;
 	private GameObject _grassGround;
 	private GameObject _sandBag;
-
+	private IList<GameObject> _obstacles = new List<GameObject> ();
 	private float _gridSize = 1.28f;
 
-	private void LoadResources() {
+	private void LoadResources ()
+	{
 		_sandGround = Resources.Load ("Ground/SandGround", typeof(GameObject)) as GameObject;
 		_dirtGround = Resources.Load ("Ground/DirtGround", typeof(GameObject)) as GameObject;
 		_grassGround = Resources.Load ("Ground/GrassGround", typeof(GameObject)) as GameObject;
 		_sandBag = Resources.Load ("Ground/BrownSandbag", typeof(GameObject)) as GameObject;
+
+		_obstacles.Add (Resources.Load ("Ground/LargeTree", typeof(GameObject)) as GameObject);
+		_obstacles.Add (Resources.Load ("Ground/SmallTree", typeof(GameObject)) as GameObject);
 	}
 
-	public void Generate() {
+	public void Generate ()
+	{
 		LoadResources ();
 
 		Clear ();
 
 		GenerateCells ();
 		GenerateBorder ();
+		GenerateObstacles ();
 	}
 
 	/// <summary>
 	/// Clears all the previous generated world elements
 	/// </summary>
-	private void Clear() {
+	private void Clear ()
+	{
 		for (var child = ParentGameObject.transform.childCount - 1; child >= 0; child--) {
-			var c = ParentGameObject.transform.GetChild(child);
+			var c = ParentGameObject.transform.GetChild (child);
 
 			DestroyImmediate (c.gameObject);
 		}
@@ -55,7 +63,7 @@ public class WorldGenerator : MonoBehaviour {
 
 	private void GenerateCell (int row, int column)
 	{
-		var instance = Instantiate(_sandGround, new Vector3(column * _gridSize, row * _gridSize, 0), Quaternion.identity) as GameObject;
+		var instance = Instantiate (_sandGround, new Vector3 (column * _gridSize, row * _gridSize, 0), Quaternion.identity) as GameObject;
 		instance.transform.SetParent (ParentGameObject.transform);
 	}
 
@@ -65,24 +73,47 @@ public class WorldGenerator : MonoBehaviour {
 		for (var column = 0; column < SizeX * 2; column++) {
 			// Position correction. This is extremly sandbag dependend. :)
 			var xPos = column * _gridSize / 2f - _gridSize / 2f + _gridSize / 14f;
-			var bottomBag = Instantiate(_sandBag, new Vector3(xPos, -_gridSize/4f, 0), Quaternion.identity) as GameObject;
-			bottomBag.transform.SetParent(ParentGameObject.transform);
+			var bottomBag = Instantiate (_sandBag, new Vector3 (xPos, -_gridSize / 4f, 0), Quaternion.identity) as GameObject;
+			bottomBag.transform.SetParent (ParentGameObject.transform);
 
-			var topBag = Instantiate(_sandBag, new Vector3(xPos, _gridSize * SizeY - _gridSize/2f, 0), Quaternion.identity) as GameObject;
-			topBag.transform.SetParent(ParentGameObject.transform);
+			var topBag = Instantiate (_sandBag, new Vector3 (xPos, _gridSize * SizeY - _gridSize / 2f, 0), Quaternion.identity) as GameObject;
+			topBag.transform.SetParent (ParentGameObject.transform);
 		}
 
 		// -1 > We are within the border of the complete game. Top and Bottom border are 1 bag together, so we the complete grid exepect 1 bag
 		for (var row = 0; row < SizeY * 2 - 1; row++) {
 			// Position correction
 			var yPos = row * _gridSize / 2f - _gridSize / 5f;
-			var leftBag = Instantiate(_sandBag, new Vector3(-_gridSize / 2f, yPos, 0), Quaternion.identity) as GameObject;
-			leftBag.transform.SetParent(ParentGameObject.transform);
-			leftBag.transform.Rotate(0, 0, 90);
+			var leftBag = Instantiate (_sandBag, new Vector3 (-_gridSize / 2f, yPos, 0), Quaternion.identity) as GameObject;
+			leftBag.transform.SetParent (ParentGameObject.transform);
+			leftBag.transform.Rotate (0, 0, 90);
 
-			var rightBag = Instantiate(_sandBag, new Vector3(_gridSize * SizeX - _gridSize + _gridSize /4f, yPos, 0), Quaternion.identity) as GameObject;
-			rightBag.transform.SetParent(ParentGameObject.transform);
-			rightBag.transform.Rotate(0, 0, 90);
+			var rightBag = Instantiate (_sandBag, new Vector3 (_gridSize * SizeX - _gridSize + _gridSize / 4f, yPos, 0), Quaternion.identity) as GameObject;
+			rightBag.transform.SetParent (ParentGameObject.transform);
+			rightBag.transform.Rotate (0, 0, 90);
 		}
+	}
+
+	private void GenerateObstacles ()
+	{
+		for (var i = 0; i < MaxObstacles; i++) {
+			var whichObstacleToInstanciate = Random.Range (0, _obstacles.Count);
+
+			// Avoid placing objects to near at the border
+			// DON'T calculate the random first and multiply it to avoid placing the obstacles on a grid
+			// Obstacles should be placed freely
+			// We actually ALLOW overlapping obstacles
+			var position = GetObstaclePosition();
+
+			var obstacle = Instantiate (_obstacles [whichObstacleToInstanciate], position, Quaternion.identity) as GameObject;
+			obstacle.transform.SetParent (ParentGameObject.transform);
+		} 
+	}
+
+	private Vector3 GetObstaclePosition ()
+	{
+		var position = new Vector3 (Random.Range (2 * _gridSize, _gridSize * (SizeX - 2)), Random.Range (2 * _gridSize, _gridSize * (SizeY - 2)), 0);
+
+		return position;
 	}
 }
