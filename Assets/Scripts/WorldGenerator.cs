@@ -15,6 +15,9 @@ public class WorldGenerator : MonoBehaviour
 	public GameObject Player;
 	public Vector3 PlayerStartPosition;
 
+	public int SandDistanceToBorder = 3;
+	public int DirtDistanceToBorder = 5;
+
 	private GameObject _sandGround;
 	private GameObject _dirtGround;
 	private GameObject _grassGround;
@@ -68,8 +71,31 @@ public class WorldGenerator : MonoBehaviour
 
 	private void GenerateCell (int row, int column)
 	{
-		var instance = Instantiate (_sandGround, new Vector3 (column * _gridSize, row * _gridSize, 0), Quaternion.identity) as GameObject;
+		var point = new Vector3 (column * _gridSize, row * _gridSize, 0);
+		var objToInstantiate = _grassGround;
+		var absoluteDistanceToBorder = AbsoluteDistanceToBorder (point);
+
+		if (absoluteDistanceToBorder < SandDistanceToBorder * _gridSize) {
+			objToInstantiate = _sandGround;
+		} else if (absoluteDistanceToBorder < DirtDistanceToBorder * _gridSize) {
+			objToInstantiate = _dirtGround;
+		}
+
+		var instance = Instantiate (objToInstantiate, point, Quaternion.identity) as GameObject;
 		instance.transform.SetParent (ParentGameObject.transform);
+	}
+
+	private float AbsoluteDistanceToBorder(Vector2 point) {
+		var distanceToLeftBorder = Vector2.Distance (new Vector2 (0, point.y), point);
+		var distanceToRightBorder = Vector2.Distance (new Vector2 (SizeX * _gridSize, point.y), point);
+		var distanceToTopBorder = Vector2.Distance (new Vector2 (point.x, SizeY * _gridSize), point);
+		var distanceToBottomBorder = Vector2.Distance (new Vector2 (point.x, 0), point);
+
+		// I'm pretty sure, it can be done easier, but it's late night currently. :)
+		var minXDistance = Mathf.Min (distanceToLeftBorder, distanceToRightBorder);
+		var minYDistance = Mathf.Min (distanceToTopBorder, distanceToBottomBorder);
+
+		return Mathf.Min (minXDistance, minYDistance);
 	}
 
 	private void GenerateBorder ()
@@ -123,7 +149,8 @@ public class WorldGenerator : MonoBehaviour
 	}
 
 	private void GeneratePlayer () {
-		if (Player == null) {
+		// Dont create a player if it is not assigned or we are in editor mode
+		if (Player == null || Application.isEditor) {
 			return;
 		}
 
