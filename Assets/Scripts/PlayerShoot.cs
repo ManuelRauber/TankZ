@@ -34,7 +34,7 @@ public class PlayerShoot : MonoBehaviour {
 
 	private void FireCannon() 
 	{
-		if (Input.GetMouseButtonDown(0)) 
+		if (Input.GetMouseButton(0)) 
 		{
 			if (Time.time <= _nextFireTime) {
 				return;
