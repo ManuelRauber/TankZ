@@ -150,7 +150,7 @@ public class WorldGenerator : MonoBehaviour
 
 	private void GeneratePlayer () {
 		// Dont create a player if it is not assigned or we are in editor mode
-		if (Player == null || Application.isEditor) {
+		if (Player == null || Application.isEditor && !Application.isPlaying) {
 			return;
 		}
 
