@@ -26,3 +26,4 @@ Even if I don't have a plan what exactly TankZ will be, here is a little list of
 	* Desktop
 	* Web (Unity WebGL)
 	* Mobile? 
+* Character creation
