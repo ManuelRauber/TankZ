@@ -66,18 +66,23 @@ public class PlayerShoot : MonoBehaviour {
 		// Detect, if the player presses the left mouse button
 		if (Input.GetMouseButton(0)) 
 		{
+			// If the tank is not finished with reloading, skip the fire trigger
 			if (Time.time <= _nextFireTime) {
 				return;
 			}
 
+			// Set the next fire time 
 			_nextFireTime = Time.time + ReloadTime;
 
+			// Play the animation
 			_animator.SetTrigger("FireTrigger");
 
+			// Instantiate the button and add the force to it
 			var bullet = (GameObject) Instantiate(Bullet, BulletStartPoint.transform.position, BulletStartPoint.transform.rotation);
 			var bulletBody = (Rigidbody2D) bullet.GetComponentInChildren(typeof(Rigidbody2D));
 			bulletBody.AddForce(bullet.transform.up * FirePower, ForceMode2D.Impulse);
 
+			// If we have a smoke system: Play it!
 			if (SmokeSystem != null) 
 			{
 				var smoke = (ParticleSystem) Instantiate(SmokeSystem, SmokeSystem.transform.position, SmokeSystem.transform.rotation);
@@ -85,6 +90,7 @@ public class PlayerShoot : MonoBehaviour {
 				Destroy(smoke.gameObject, smoke.startLifetime * 1.1f);
 			}
 
+			// If we have a sound: Play it!
 			if (AttackSound != null) 
 			{
 				var sound = (AudioSource) Instantiate(AttackSound, BulletStartPoint.transform.position, BulletStartPoint.transform.rotation);
