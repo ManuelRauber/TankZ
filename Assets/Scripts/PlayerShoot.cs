@@ -2,15 +2,44 @@
 using System.Collections;
 
 public class PlayerShoot : MonoBehaviour {
-
+	/// <summary>
+	/// The animator used to controll the animations
+	/// </summary>
 	private Animator _animator;
+
+	/// <summary>
+	/// The time when fire can be triggered again
+	/// </summary>
 	private float _nextFireTime;
 
+	/// <summary>
+	/// The particle system used for creating the smoke when shooting
+	/// </summary>
 	public ParticleSystem SmokeSystem;
+
+	/// <summary>
+	/// A sound which is played when shooting
+	/// </summary>
 	public AudioSource AttackSound;
+
+	/// <summary>
+	/// The bullet which is instantiated when shooting
+	/// </summary>
 	public GameObject Bullet;
+
+	/// <summary>
+	/// Where the bullet will be instantiated
+	/// </summary>
 	public GameObject BulletStartPoint;
+
+	/// <summary>
+	/// Describes the force which is added when shooting to the bullet
+	/// </summary>
 	public float FirePower = 2.0f;
+
+	/// <summary>
+	/// The amount of time to wait before another fire can be triggered
+	/// </summary>
 	public float ReloadTime = 0.4f;
 
 	public void Awake() 
@@ -34,6 +63,7 @@ public class PlayerShoot : MonoBehaviour {
 
 	private void FireCannon() 
 	{
+		// Detect, if the player presses the left mouse button
 		if (Input.GetMouseButton(0)) 
 		{
 			if (Time.time <= _nextFireTime) {
