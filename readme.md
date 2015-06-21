@@ -26,4 +26,8 @@ Even if I don't have a plan what exactly TankZ will be, here is a little list of
 	* Desktop
 	* Web (Unity WebGL)
 	* Mobile? 
-* Character creation
+* Character creation (Kenney Character Pack)
+* Achievements (Kenny Medals)
+* Terrain
+	* Tank should be slower in certain terrain
+	* can be faster on roads (Kenney Roads Pack)
