@@ -6,6 +6,8 @@ TankZ will be a little 2D game with human controlled tanks. Goal is - of course 
 
 For more information please feel free to head over to my blog: http://manuel-rauber.com/category/unity/tankz/
 
+You can always find a release at https://tankz.azurewebsites.net. It may not be build from the current source code, but here is a [Release Log](release.md)
+
 ## The list
 
 Even if I don't have a plan what exactly TankZ will be, here is a little list of things, which are needed or sound like a nice idea:
