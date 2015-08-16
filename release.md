@@ -9,6 +9,7 @@ The latest release is deployed at https://tankz.azurewebsites.net
 * New collision sound
 * Tank has an exhaust pipe (how lovely!)
 * Different ground textures
+* New Cursor
 
 ## v0.1 - Release 4
 
