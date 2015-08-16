@@ -2,10 +2,17 @@
 
 The latest release is deployed at https://tankz.azurewebsites.net
 
+## v0.1 - Release 5
+
+* Reworked GUI
+* Tank leaves trails while driving (unperformant, currently!)
+* New collision sound
+* Tank has an exhaust pipe (how lovely!)
+* Different ground textures
+
 ## v0.1 - Release 4
 
 * Some more particle effects
-* Reworked GUI
 * Shooting collision
 
 ## v0.1 - Release 3
