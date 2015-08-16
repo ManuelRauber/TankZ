@@ -8,7 +8,7 @@ For more information please feel free to head over to my blog: http://manuel-rau
 
 You can always find a release at https://tankz.azurewebsites.net. It may not be build from the current source code, but here is a [Release Log](release.md)
 
-## The list
+## Idea list
 
 Even if I don't have a plan what exactly TankZ will be, here is a little list of things, which are needed or sound like a nice idea:
 
