@@ -1,5 +1,7 @@
 # TankZ Release Log
 
+The latest release is deployed at https://tankz.azurewebsites.net
+
 ## v0.1 - Release 4
 
 * Some more particle effects
