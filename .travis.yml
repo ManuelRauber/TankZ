@@ -3,7 +3,7 @@ osx_image: xcode7
 rvm:
 - 2.1.2
 before_install:
-- chmod x ./ci/install-unity.sh
+- chmod +x ./ci/install-unity.sh
 install:
 - ./ci/install-unity.sh
 script:
