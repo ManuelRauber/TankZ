@@ -1,4 +1,9 @@
 os: osx
 sudo: required
+before_install:
+- chmod +x ./ci/install-unity.sh
+- chmod +x ./ci/build.sh
+install:
+- ./ci/install-unity.sh
 script:
 - ./ci/build.sh
