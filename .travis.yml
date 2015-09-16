@@ -1,5 +1,4 @@
-language: objective-c
-osx_image: xcode7
-rvm:
-- 2.1.2
+os: osx
 sudo: required
+script:
+- ./ci/build.sh
