@@ -13,6 +13,7 @@ echo "Attempting to build $project as WebGL Output"
 # -projectPath: Path to the project, which Unity will load
 # -executeMethod: Method which Unity will execute. This method will actually build the project
 # -quit: Quit Unity when everything is done
+
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
   -batchmode \
   -nographics \

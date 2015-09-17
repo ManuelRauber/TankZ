@@ -26,11 +26,11 @@ install:
 
 # Execute the build script
 script:
-- ./ci/build.sh
+- travis_wait ./ci/build.sh
 
 # Deployment Settings
 deploy:
-  # Deploy to Azure Web Apps
+  # Deploy to Azure Web Apps using a custom script
   provider: script
   script: ./ci/deploy.sh
   # Only deploy from master branch
