@@ -1,7 +1,11 @@
 #! /bin/sh
 
-echo 'Downloading from http://netstorage.unity3d.com/unity/afd2369b692a/MacEditorInstaller/Unity-5.1.2f1.pkg: '
-curl -o Unity.pkg http://netstorage.unity3d.com/unity/afd2369b692a/MacEditorInstaller/Unity-5.1.2f1.pkg
+if [ ! -f ./unity/Unity.pkg ]; then
+  echo 'Downloading from http://netstorage.unity3d.com/unity/e7947df39b5c/MacEditorInstaller/Unity-5.2.0f3.pkg: '
+  curl -o ./unity/Unity.pkg http://netstorage.unity3d.com/unity/e7947df39b5c/MacEditorInstaller/Unity-5.2.0f3.pkg
+else
+  echo 'Using cached Unity version'
+fi
 
 echo 'Installing Unity.pkg'
-sudo installer -dumplog -package Unity.pkg -target /
+sudo installer -dumplog -package ./unity/Unity.pkg -target /
