@@ -1,17 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerTank : MonoBehaviour {
-	/// <summary>
-	/// The maximum speed the tank can achieve
-	/// </summary>
-	public float Speed = 80f;
-
-	/// <summary>
-	/// Maximum turn speed of the tank
-	/// </summary>
-	public float TurnSpeed = 1.3f;
-
+public class PlayerTank : BaseTank {
 	/// <summary>
 	/// A game object which represents the barrel. It is used for the mouse follow function
 	/// </summary>
